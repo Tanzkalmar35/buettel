@@ -1,31 +1,73 @@
 ---
-
+const events = Object.values(import.meta.glob('./events/*.md', { eager: true }));
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bürgerverein Neuhausen - Startseite</title>
+    
+    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  </head>
+  <body style="font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 2rem;">
+    
+    <h1>Willkommen beim Bürgerverein!</h1>
+    <p>Hier sind unsere anstehenden Termine:</p>
 
-        <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-        <script>
-        if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", user => {
-            if (!user) {
-                window.netlifyIdentity.on("login", () => {
-                document.location.href = "/admin/";
-                });
-            }
+    <hr style="margin-bottom: 2rem;" />
+
+    {events.length === 0 && <p>Aktuell stehen keine Events an.</p>}
+
+    <div style="display: flex; flex-direction: column; gap: 2rem;">
+      {events.map((event) => (
+        <article style="border: 1px solid #ddd; padding: 1.5rem; border-radius: 8px;">
+          
+          {/* Titel aus dem Frontmatter */}
+          <h2 style="margin-top: 0;">{event.frontmatter.title}</h2>
+          
+          {/* Datum formatieren */}
+          <p style="color: #666; font-weight: bold;">
+            Wann: {new Date(event.frontmatter.date).toLocaleDateString('de-DE', { 
+              day: '2-digit', 
+              month: 'long', 
+              year: 'numeric' 
+            })}
+          </p>
+
+          {/* Bild anzeigen, falls eins hochgeladen wurde */}
+          {event.frontmatter.image && (
+            <img 
+              src={event.frontmatter.image} 
+              alt={event.frontmatter.title} 
+              style="width: 100%; max-height: 300px; object-fit: cover; border-radius: 4px;" 
+            />
+          )}
+
+          {/* Der Beschreibungstext aus dem Markdown-Body */}
+          <div style="margin-top: 1rem;">
+            <event.Content />
+          </div>
+
+          {/* Da die Dateien in src/pages liegen, hat Astro automatisch Unterseiten dafür erstellt! */}
+          <div style="margin-top: 1rem;">
+             <a href={event.url}>Zum Event ({event.url})</a>
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+    <script is:inline>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
             });
-        }
-        </script>
-
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+          }
+        });
+      }
+    </script>
+  </body>
 </html>
