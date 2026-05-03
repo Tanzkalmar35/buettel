@@ -1,0 +1,107 @@
+---
+// Importiere dein Layout
+import '../styles/global.css'
+import Layout from '../layouts/Layout.astro';
+import { getEntry } from 'astro:content';
+
+const aboutSettings = await getEntry('settings', 'about');
+const { heroImage, history, values, boardMembers, membership } = aboutSettings.data;
+---
+
+<Layout>
+  <div class="bg-white">
+    <!-- Hero -->
+    <div class="relative h-[400px] overflow-hidden">
+      <img
+        src={heroImage}
+        alt="Über uns"
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-black/50"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <h1 class="text-5xl font-bold text-white">Über uns</h1>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      
+      <!-- History -->
+      <div class="mb-16">
+        <h2 class="text-3xl font-bold mb-6 text-gray-900">
+          Unsere Geschichte
+        </h2>
+        <div class="prose max-w-none text-gray-700">
+          {history.split('\n\n').map(paragraph => (
+            <p class="mb-4">{paragraph}</p>
+          ))}
+        </div>
+      </div>
+
+      <!-- Values -->
+      <div class="mb-16 bg-gray-50 rounded-xl p-8 md:p-12">
+        <h2 class="text-3xl font-bold mb-8 text-center text-gray-900">
+          Unsere Werte
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {values.map((value) => (
+            <div class="text-center">
+              <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-green-700" set:html={value.icon} />
+              </div>
+              <h3 class="font-bold mb-2 text-gray-900">{value.title}</h3>
+              <p class="text-gray-600">{value.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Board -->
+      <div class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 text-gray-900">
+          Unser Vorstand
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {boardMembers.map((member) => (
+            <div class="bg-white border border-gray-200 rounded-lg p-6 text-center hover:shadow-md transition-shadow">
+              <div class="w-24 h-24 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                <!-- Users Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 text-green-700">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+              <h3 class="font-bold mb-1 text-gray-900">{member.name}</h3>
+              <p class="text-gray-600">{member.role}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Membership CTA -->
+      <div class="bg-green-700 rounded-xl p-8 md:p-12 text-white text-center">
+        <h2 class="text-3xl font-bold mb-4">{membership.title}</h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto">
+          {membership.description}
+        </p>
+        <div class="bg-white rounded-lg p-6 max-w-md mx-auto text-left text-gray-900">
+          <h3 class="font-bold mb-4">Mitgliedsbeitrag</h3>
+          <ul class="space-y-2">
+            {membership.fees.map((fee) => (
+              <li class="flex justify-between">
+                <span>{fee.label}</span>
+                <span class="font-medium">{fee.value}</span>
+              </li>
+            ))}
+          </ul>
+          <div class="mt-6 pt-6 border-t border-gray-200">
+            <p class="text-sm text-gray-600 mb-4">
+              Kontaktieren Sie uns für weitere Informationen:
+            </p>
+            <p class="font-medium">{membership.contactInfo}</p>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</Layout>

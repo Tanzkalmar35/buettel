@@ -1,0 +1,83 @@
+---
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) => currentPath === href;
+---
+
+<header class="bg-white shadow-sm sticky left-0 top-0 z-50 w-[100vw]">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+
+      <!-- Logo -->
+      <div class="flex items-center">
+        <a href="/" class="flex items-center gap-2">
+          <div class="w-10 h-10 bg-green-700 rounded-full flex items-center justify-center text-white font-bold">
+            BV
+          </div>
+          <div>
+            <div class="font-bold text-gray-900">Bürgerverein Büttel</div>
+            <div class="text-xs text-gray-500">Gemeinsam für unser Dorf</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex gap-8">
+          <a id='veranstaltungen' href='/' class='px-3 py-2 rounded-md transition-colors'>Veranstaltungen</a>
+          <a id='about' href='/ueber-uns' class='px-3 py-2 rounded-md transition-colors'>Ueber uns</a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-btn" class="md:hidden p-2" aria-label="Toggle menu">
+        Hamburger icon (shown by default)
+        <svg id="icon-menu" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+
+        <svg id="icon-close" class="h-6 w-6 text-gray-700 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+    </div>
+
+    <!-- Mobile Navigation -->
+    <!-- <div id="mobile-menu" class="md:hidden py-4 border-t hidden"> -->
+    <!--   {navigation.map((item) => ( -->
+    <!---->
+    <!--       href={item.href} -->
+    <!--       class={`block px-3 py-2 rounded-md mb-1 ${ -->
+    <!--         isActive(item.href) -->
+    <!--           ? "bg-green-50 text-green-700 font-medium" -->
+    <!--           : "text-gray-700 hover:bg-gray-50" -->
+    <!--       }`} -->
+    <!--     > -->
+    <!--       {item.name} -->
+    <!--     </a> -->
+    <!--   ))} -->
+    <!-- </div> -->
+
+  </nav>
+</header>
+
+<script>
+  const btn = document.getElementById("mobile-menu-btn");
+  const menu = document.getElementById("mobile-menu");
+  const iconMenu = document.getElementById("icon-menu");
+  const iconClose = document.getElementById("icon-close");
+
+  btn?.addEventListener("click", () => {
+    const isOpen = !menu?.classList.contains("hidden");
+    menu?.classList.toggle("hidden", isOpen);
+    iconMenu?.classList.toggle("hidden", !isOpen);
+    iconClose?.classList.toggle("hidden", isOpen);
+  });
+
+  // Close menu on nav link click (for SPA-like feel)
+  menu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      menu.classList.add("hidden");
+      iconMenu?.classList.remove("hidden");
+      iconClose?.classList.add("hidden");
+    });
+  });
+</script>

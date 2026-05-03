@@ -2,17 +2,87 @@ backend:
   name: git-gateway
   branch: master
 
-media_folder: "public/uploads" # Hier landen die Bilder im Repo
-public_folder: "/uploads"      # So greift die Website später auf die Bilder zu
+media_folder: "public/uploads"
+public_folder: "/uploads"
 
 collections:
   - name: "events"
-    label: "Events"
-    folder: "src/pages/events" # Hier speichert das CMS die Markdown-Dateien ab
+    label: "Veranstaltungen"
+    label_singular: "Veranstaltung"
+    folder: "src/content/events"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{slug}}"
     fields:
       - {label: "Titel", name: "title", widget: "string"}
-      - {label: "Datum", name: "date", widget: "datetime"}
-      - {label: "Bild", name: "image", widget: "image", required: false}
-      - {label: "Beschreibung", name: "body", widget: "markdown"}
+      - {label: "Datum", name: "date", widget: "string"}
+      - {label: "Uhrzeit", name: "time", widget: "string"}
+      - {label: "Ort", name: "location", widget: "string"}
+      - {label: "Kurzbeschreibung", name: "description", widget: "text"}
+      - {label: "Bild", name: "image", widget: "image"}
+      - {label: "Ist vergangen?", name: "isPast", widget: "boolean", default: false}
+      - {label: "Bildergalerie", name: "gallery", widget: "list", field: {label: "Bild", name: "image", widget: "image"}, required: false}
+      - {label: "Lange Beschreibung", name: "longDescription", widget: "markdown", required: false}
+      - {label: "Inhalt", name: "body", widget: "markdown", required: false}
+
+  - name: "settings"
+    label: "Einstellungen"
+    delete: false
+    files:
+      - name: "homepage"
+        label: "Startseite"
+        file: "src/content/settings/homepage.json"
+        fields:
+          - label: "Hero Bereich"
+            name: "hero"
+            widget: "object"
+            fields:
+              - {label: "Titel", name: "title", widget: "string"}
+              - {label: "Untertitel", name: "subtitle", widget: "string"}
+              - {label: "Bild", name: "image", widget: "image"}
+              - {label: "Button Text", name: "ctaText", widget: "string"}
+          - label: "Highlights"
+            name: "highlights"
+            widget: "list"
+            fields:
+              - {label: "Icon (SVG Pfad)", name: "icon", widget: "string"}
+              - {label: "Titel", name: "title", widget: "string"}
+              - {label: "Beschreibung", name: "description", widget: "string"}
+          - label: "Newsletter Bereich"
+            name: "newsletter"
+            widget: "object"
+            fields:
+              - {label: "Titel", name: "title", widget: "string"}
+              - {label: "Beschreibung", name: "description", widget: "text"}
+              - {label: "Hintergrundbild", name: "image", widget: "image"}
+      - name: "about"
+        label: "Über uns Seite"
+        file: "src/content/settings/about.json"
+        fields:
+          - {label: "Hero Bild", name: "heroImage", widget: "image"}
+          - {label: "Geschichte", name: "history", widget: "markdown"}
+          - label: "Unsere Werte"
+            name: "values"
+            widget: "list"
+            fields:
+              - {label: "Icon (SVG Pfad)", name: "icon", widget: "string"}
+              - {label: "Titel", name: "title", widget: "string"}
+              - {label: "Beschreibung", name: "description", widget: "string"}
+          - label: "Vorstand"
+            name: "boardMembers"
+            widget: "list"
+            fields:
+              - {label: "Name", name: "name", widget: "string"}
+              - {label: "Rolle", name: "role", widget: "string"}
+          - label: "Mitgliedschaft"
+            name: "membership"
+            widget: "object"
+            fields:
+              - {label: "Titel", name: "title", widget: "string"}
+              - {label: "Beschreibung", name: "description", widget: "text"}
+              - label: "Beiträge"
+                name: "fees"
+                widget: "list"
+                fields:
+                  - {label: "Bezeichnung", name: "label", widget: "string"}
+                  - {label: "Wert", name: "value", widget: "string"}
+              - {label: "Kontakt-Email", name: "contactInfo", widget: "string"}

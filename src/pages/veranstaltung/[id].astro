@@ -1,0 +1,216 @@
+---
+import '../../styles/global.css'
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allEvents = await getCollection('events');
+  
+  return allEvents.map((event) => ({
+    params: { id: event.slug },
+    props: { event },
+  }));
+}
+
+const { event } = Astro.props;
+
+// Falls du Astro im SSR-Modus nutzt und ein Event nicht gefunden wird:
+if (!event) {
+  return Astro.redirect('/404');
+}
+---
+
+<Layout>
+  <div class="min-h-screen bg-gray-50">
+    <!-- Hero Image -->
+    <div class="relative h-[400px] md:h-[500px] overflow-hidden">
+      <img
+        src={event.data.image}
+        alt={event.data.title}
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+
+      <!-- Back Button -->
+      <a
+        href="/"
+        class="absolute top-6 left-6 inline-flex items-center gap-2 bg-white/90 hover:bg-white backdrop-blur-sm text-gray-900 px-4 py-2 rounded-lg transition-all shadow-lg"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+          <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
+        </svg>
+        Zurück
+      </a>
+
+      <!-- Status Badge -->
+      {event.data.isPast && (
+        <div class="absolute top-6 right-6 bg-black/60 backdrop-blur-sm text-white px-4 py-2 rounded-full font-medium">
+          Vergangene Veranstaltung
+        </div>
+      )}
+
+      <!-- Title -->
+      <div class="absolute bottom-0 left-0 right-0 p-6 md:p-10">
+        <div class="max-w-7xl mx-auto">
+          <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+            {event.data.title}
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <!-- Event Info Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-green-700">
+                <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/>
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 mb-1">Datum</p>
+              <p class="font-bold text-gray-900">{event.data.date}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-green-700">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 mb-1">Uhrzeit</p>
+              <p class="font-bold text-gray-900">{event.data.time}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-green-700">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 mb-1">Ort</p>
+              <p class="font-bold text-gray-900">{event.data.location}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="bg-white rounded-xl p-8 md:p-10 shadow-sm border border-gray-100 mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">
+          Über die Veranstaltung
+        </h2>
+        <p class="text-gray-700 leading-relaxed text-lg mb-4">
+          {event.data.description}
+        </p>
+        {event.data.longDescription && (
+          <p class="text-gray-700 leading-relaxed">
+            {event.data.longDescription}
+          </p>
+        )}
+      </div>
+
+      <!-- Gallery -->
+      {event.data.gallery && event.data.gallery.length > 0 && (
+        <div class="bg-white rounded-xl p-8 md:p-10 shadow-sm border border-gray-100">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">
+            Bildergalerie
+          </h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {event.data.gallery.map((image, index) => (
+              <button
+                class="gallery-btn relative aspect-square rounded-lg overflow-hidden group cursor-pointer border-none p-0"
+                data-image={image}
+                aria-label={`Bild ${index + 1} vergrößern`}
+              >
+                <img
+                  src={image}
+                  alt={`${event.data.title} Bild ${index + 1}`}
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+
+    <!-- Lightbox (Standardmäßig ausgeblendet via hidden) -->
+    <div
+      id="lightbox"
+      class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center p-4 cursor-pointer"
+    >
+      <button
+        id="close-lightbox"
+        class="absolute top-6 right-6 text-white hover:text-gray-300 text-4xl font-light leading-none cursor-pointer bg-transparent border-none"
+        aria-label="Schließen"
+      >
+        ×
+      </button>
+      <img
+        id="lightbox-img"
+        src=""
+        alt="Vergrößertes Bild"
+        class="max-w-full max-h-full object-contain cursor-default"
+      />
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Client-seitige Logik für die Bildergalerie / Lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+  const closeBtn = document.getElementById('close-lightbox');
+  const galleryBtns = document.querySelectorAll('.gallery-btn');
+
+  // Öffnen der Lightbox
+  galleryBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const src = btn.getAttribute('data-image');
+      if (src && lightbox && lightboxImg) {
+        lightboxImg.src = src;
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex');
+        document.body.style.overflow = 'hidden'; // Scrollen der Seite verhindern
+      }
+    });
+  });
+
+  // Schließen der Lightbox
+  const closeLightbox = () => {
+    if (lightbox) {
+      lightbox.classList.remove('flex');
+      lightbox.classList.add('hidden');
+      document.body.style.overflow = ''; // Scrollen wieder erlauben
+    }
+  };
+
+  closeBtn?.addEventListener('click', closeLightbox);
+  
+  // Klick außerhalb des Bildes schließt die Lightbox ebenfalls
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  // Esc-Taste schließt Lightbox
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !lightbox?.classList.contains('hidden')) {
+      closeLightbox();
+    }
+  });
+</script>

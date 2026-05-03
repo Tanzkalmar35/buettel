@@ -1,0 +1,169 @@
+---
+import '../styles/global.css'
+
+// Server-side frontmatter
+const { pathname } = Astro.url;
+
+const navigation = [
+  { name: "Veranstaltungen", href: "/" },
+  { name: "Über unser Dorf", href: "/about" },
+];
+
+const isActive = (href: string) => {
+  if (href === "/") {
+    // Note: You might want to check for pathname === "" or "/" depending on your trailingSlash config in Astro
+    return pathname === "/";
+  }
+  return pathname.startsWith(href);
+};
+---
+
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bürgerverein Büttel</title>
+  </head>
+  <body>
+    <div class="min-h-screen flex flex-col">
+      <!-- Header -->
+      <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between items-center h-16">
+            <div class="flex items-center">
+              <a href="/" class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-green-700 rounded-full flex items-center justify-center text-white font-bold">
+                  BV
+                </div>
+                <div>
+                  <div class="font-bold text-gray-900">Bürgerverein Büttel</div>
+                  <div class="text-xs text-gray-500">Gemeinsam für unser Dorf</div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex gap-8">
+              {navigation.map((item) => (
+                <a
+                  href={item.href}
+                  class={`px-3 py-2 rounded-md transition-colors ${
+                    isActive(item.href)
+                      ? "text-green-700 font-medium"
+                      : "text-gray-700 hover:text-green-700"
+                  }`}
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+
+            <!-- Mobile menu button -->
+            <button
+              id="mobile-menu-btn"
+              class="md:hidden p-2"
+              aria-label="Menü umschalten"
+            >
+              <!-- Lucide Menu Icon -->
+              <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-gray-700">
+                <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
+              </svg>
+              <!-- Lucide X Icon -->
+              <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-gray-700 hidden">
+                <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Mobile Navigation -->
+          <div id="mobile-menu" class="hidden md:hidden py-4 border-t">
+            {navigation.map((item) => (
+              <a
+                href={item.href}
+                class={`mobile-nav-link block px-3 py-2 rounded-md mb-1 ${
+                  isActive(item.href)
+                    ? "bg-green-50 text-green-700 font-medium"
+                    : "text-gray-700 hover:bg-gray-50"
+                }`}
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
+        </nav>
+      </header>
+
+      <!-- Main Content -->
+      <main class="flex-1">
+        <slot />
+      </main>
+
+      <!-- Footer -->
+      <footer class="bg-gray-900 text-gray-300 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <div class="font-bold text-white mb-4">Bürgerverein Büttel</div>
+              <p class="text-sm">
+                Gemeinsam gestalten wir die Zukunft unseres Dorfes und pflegen
+                unsere Traditionen.
+              </p>
+            </div>
+            <div>
+              <div class="font-bold text-white mb-4">Kontakt</div>
+              <p class="text-sm">
+                Dorfstraße 12<br />
+                25376 Büttel<br />
+                <br />
+                info@buergerverein-buettel.de
+              </p>
+            </div>
+            <div>
+              <div class="font-bold text-white mb-4">Schnelllinks</div>
+              <div class="flex flex-col gap-2">
+                {navigation.map((item) => (
+                  <a
+                    href={item.href}
+                    class="text-sm hover:text-white transition-colors"
+                  >
+                    {item.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div class="border-t border-gray-800 mt-8 pt-8 text-sm text-center">
+            © 2026 Bürgerverein Büttel. Alle Rechte vorbehalten.
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Client-side script for mobile menu toggle -->
+    <script>
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+      const closeIcon = document.getElementById('close-icon');
+      const navLinks = document.querySelectorAll('.mobile-nav-link');
+
+      const toggleMenu = () => {
+        menu?.classList.toggle('hidden');
+        menuIcon?.classList.toggle('hidden');
+        closeIcon?.classList.toggle('hidden');
+      };
+
+      btn?.addEventListener('click', toggleMenu);
+
+      // Close menu when a link is clicked
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (!menu?.classList.contains('hidden')) {
+            toggleMenu();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
+</Link>
