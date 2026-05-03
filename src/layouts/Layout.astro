@@ -1,5 +1,16 @@
 ---
 import '../styles/global.css'
+import { getEntry } from 'astro:content';
+
+// Fetch Global Settings
+const contact = await getEntry('pages', 'contact');
+const {
+  villageName = "Bürgerverein Büttel",
+  slogan = "Gemeinsam für unser Dorf",
+  address = "Dorfstraße 12\n25376 Büttel",
+  email = "info@buergerverein-buettel.de",
+  copyright = "© 2026 Bürgerverein Büttel. Alle Rechte vorbehalten."
+} = contact?.data || {};
 
 // Server-side frontmatter
 const { pathname } = Astro.url;
@@ -11,7 +22,6 @@ const navigation = [
 
 const isActive = (href: string) => {
   if (href === "/") {
-    // Note: You might want to check for pathname === "" or "/" depending on your trailingSlash config in Astro
     return pathname === "/";
   }
   return pathname.startsWith(href);
@@ -22,7 +32,7 @@ const isActive = (href: string) => {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bürgerverein Büttel</title>
+    <title>{villageName}</title>
   </head>
   <body>
     <div class="min-h-screen flex flex-col">
@@ -36,8 +46,8 @@ const isActive = (href: string) => {
                   BV
                 </div>
                 <div>
-                  <div class="font-bold text-gray-900">Bürgerverein Büttel</div>
-                  <div class="text-xs text-gray-500">Gemeinsam für unser Dorf</div>
+                  <div class="font-bold text-gray-900">{villageName}</div>
+                  <div class="text-xs text-gray-500">{slogan}</div>
                 </div>
               </a>
             </div>
@@ -103,19 +113,16 @@ const isActive = (href: string) => {
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
-              <div class="font-bold text-white mb-4">Bürgerverein Büttel</div>
+              <div class="font-bold text-white mb-4">{villageName}</div>
               <p class="text-sm">
-                Gemeinsam gestalten wir die Zukunft unseres Dorfes und pflegen
-                unsere Traditionen.
+                {slogan}
               </p>
             </div>
             <div>
               <div class="font-bold text-white mb-4">Kontakt</div>
-              <p class="text-sm">
-                Dorfstraße 12<br />
-                25376 Büttel<br />
-                <br />
-                info@buergerverein-buettel.de
+              <p class="text-sm whitespace-pre-line">
+                {address}<br /><br />
+                {email}
               </p>
             </div>
             <div>
@@ -133,7 +140,7 @@ const isActive = (href: string) => {
             </div>
           </div>
           <div class="border-t border-gray-800 mt-8 pt-8 text-sm text-center">
-            © 2026 Bürgerverein Büttel. Alle Rechte vorbehalten.
+            {copyright}
           </div>
         </div>
       </footer>
@@ -166,4 +173,3 @@ const isActive = (href: string) => {
     </script>
   </body>
 </html>
-</Link>

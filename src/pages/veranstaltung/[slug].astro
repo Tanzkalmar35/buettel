@@ -1,23 +1,22 @@
 ---
 import '../../styles/global.css'
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
+// 1. Generiere die Pfade anhand der CMS-Dateien
 export async function getStaticPaths() {
   const allEvents = await getCollection('events');
   
   return allEvents.map((event) => ({
-    params: { id: event.slug },
+    params: { slug: event.id },
     props: { event },
   }));
 }
 
 const { event } = Astro.props;
 
-// Falls du Astro im SSR-Modus nutzt und ein Event nicht gefunden wird:
-if (!event) {
-  return Astro.redirect('/404');
-}
+// 2. Den langen Text (Body) aus der Markdown-Datei extrahieren
+const { Content } = await render(event);
 ---
 
 <Layout>
@@ -112,39 +111,34 @@ if (!event) {
           Über die Veranstaltung
         </h2>
         <p class="text-gray-700 leading-relaxed text-lg mb-4">
-          {event.data.description}
+          {event.body}
         </p>
-        {event.data.longDescription && (
-          <p class="text-gray-700 leading-relaxed">
-            {event.data.longDescription}
-          </p>
-        )}
       </div>
 
       <!-- Gallery -->
-      {event.data.gallery && event.data.gallery.length > 0 && (
-        <div class="bg-white rounded-xl p-8 md:p-10 shadow-sm border border-gray-100">
-          <h2 class="text-2xl font-bold text-gray-900 mb-6">
-            Bildergalerie
-          </h2>
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {event.data.gallery.map((image, index) => (
-              <button
-                class="gallery-btn relative aspect-square rounded-lg overflow-hidden group cursor-pointer border-none p-0"
-                data-image={image}
-                aria-label={`Bild ${index + 1} vergrößern`}
-              >
-                <img
-                  src={image}
-                  alt={`${event.data.title} Bild ${index + 1}`}
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+        {event.data.gallery && event.data.gallery.length > 0 && (
+            <div class="bg-white rounded-xl p-8 md:p-10 shadow-sm border border-gray-100">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">
+                Bildergalerie
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {event.data.gallery.map((image, index) => (
+                <button
+                    class="gallery-btn relative aspect-square rounded-lg overflow-hidden group cursor-pointer border-none p-0"
+                    data-image={image}
+                    aria-label={`Bild ${index + 1} vergrößern`}
+                >
+                    <img
+                    src={image}
+                    alt={`${event.data.title} Bild ${index + 1}`}
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+                </button>
+                ))}
+            </div>
+            </div>
+        )}    
     </div>
 
     <!-- Lightbox (Standardmäßig ausgeblendet via hidden) -->

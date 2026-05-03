@@ -1,11 +1,28 @@
 ---
-// Importiere dein Layout
-import '../styles/global.css'
 import Layout from '../layouts/Layout.astro';
-import { getEntry } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 
-const aboutSettings = await getEntry('settings', 'about');
-const { heroImage, history, values, boardMembers, membership } = aboutSettings.data;
+const aboutPage = await getEntry('pages', 'about');
+const contact = await getEntry('pages', 'contact');
+
+if (!aboutPage) {
+  return Astro.redirect('/404');
+}
+
+const {
+  heroImage,
+  historyTitle,
+  valuesTitle,
+  values = [],
+  boardTitle,
+  boardMembers = [],
+  membershipTitle,
+  membershipSubtitle,
+  membershipFees = []
+} = aboutPage.data;
+
+// Use Astro's built-in render function for Markdown
+const { Content: HistoryContent } = await render(aboutPage);
 ---
 
 <Layout>
@@ -29,19 +46,17 @@ const { heroImage, history, values, boardMembers, membership } = aboutSettings.d
       <!-- History -->
       <div class="mb-16">
         <h2 class="text-3xl font-bold mb-6 text-gray-900">
-          Unsere Geschichte
+          {historyTitle}
         </h2>
         <div class="prose max-w-none text-gray-700">
-          {history.split('\n\n').map(paragraph => (
-            <p class="mb-4">{paragraph}</p>
-          ))}
+          <HistoryContent />
         </div>
       </div>
 
       <!-- Values -->
       <div class="mb-16 bg-gray-50 rounded-xl p-8 md:p-12">
         <h2 class="text-3xl font-bold mb-8 text-center text-gray-900">
-          Unsere Werte
+          {valuesTitle}
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {values.map((value) => (
@@ -59,7 +74,7 @@ const { heroImage, history, values, boardMembers, membership } = aboutSettings.d
       <!-- Board -->
       <div class="mb-16">
         <h2 class="text-3xl font-bold mb-8 text-gray-900">
-          Unser Vorstand
+          {boardTitle}
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {boardMembers.map((member) => (
@@ -79,17 +94,17 @@ const { heroImage, history, values, boardMembers, membership } = aboutSettings.d
 
       <!-- Membership CTA -->
       <div class="bg-green-700 rounded-xl p-8 md:p-12 text-white text-center">
-        <h2 class="text-3xl font-bold mb-4">{membership.title}</h2>
+        <h2 class="text-3xl font-bold mb-4">{membershipTitle}</h2>
         <p class="text-xl mb-8 max-w-2xl mx-auto">
-          {membership.description}
+          {membershipSubtitle}
         </p>
         <div class="bg-white rounded-lg p-6 max-w-md mx-auto text-left text-gray-900">
           <h3 class="font-bold mb-4">Mitgliedsbeitrag</h3>
           <ul class="space-y-2">
-            {membership.fees.map((fee) => (
+            {membershipFees.map((fee) => (
               <li class="flex justify-between">
-                <span>{fee.label}</span>
-                <span class="font-medium">{fee.value}</span>
+                <span>{fee.label}:</span>
+                <span class="font-medium">{fee.price}</span>
               </li>
             ))}
           </ul>
@@ -97,7 +112,7 @@ const { heroImage, history, values, boardMembers, membership } = aboutSettings.d
             <p class="text-sm text-gray-600 mb-4">
               Kontaktieren Sie uns für weitere Informationen:
             </p>
-            <p class="font-medium">{membership.contactInfo}</p>
+            <p class="font-medium">{contact?.data.email}</p>
           </div>
         </div>
       </div>

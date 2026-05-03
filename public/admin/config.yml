@@ -1,88 +1,94 @@
+# public/admin/config.yml
 backend:
   name: git-gateway
-  branch: master
+  branch: main # oder master, je nach deinem Repository
 
-media_folder: "public/uploads"
-public_folder: "/uploads"
+# Erlaubt das Testen auf deinem lokalen Computer
+local_backend: true
+
+# Wohin sollen hochgeladene Bilder?
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
 
 collections:
-  - name: "events"
-    label: "Veranstaltungen"
-    label_singular: "Veranstaltung"
-    folder: "src/content/events"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Titel", name: "title", widget: "string"}
-      - {label: "Datum", name: "date", widget: "string"}
-      - {label: "Uhrzeit", name: "time", widget: "string"}
-      - {label: "Ort", name: "location", widget: "string"}
-      - {label: "Kurzbeschreibung", name: "description", widget: "text"}
-      - {label: "Bild", name: "image", widget: "image"}
-      - {label: "Ist vergangen?", name: "isPast", widget: "boolean", default: false}
-      - {label: "Bildergalerie", name: "gallery", widget: "list", field: {label: "Bild", name: "image", widget: "image"}, required: false}
-      - {label: "Lange Beschreibung", name: "longDescription", widget: "markdown", required: false}
-      - {label: "Inhalt", name: "body", widget: "markdown", required: false}
-
-  - name: "settings"
-    label: "Einstellungen"
-    delete: false
+  - name: "pages"
+    label: "Feste Seiten"
     files:
-      - name: "homepage"
-        label: "Startseite"
-        file: "src/content/settings/homepage.json"
+      - label: "Startseite"
+        name: "home"
+        file: "src/content/pages/home.md"
         fields:
-          - label: "Hero Bereich"
-            name: "hero"
-            widget: "object"
-            fields:
-              - {label: "Titel", name: "title", widget: "string"}
-              - {label: "Untertitel", name: "subtitle", widget: "string"}
-              - {label: "Bild", name: "image", widget: "image"}
-              - {label: "Button Text", name: "ctaText", widget: "string"}
+          - { label: "Titel (im Bild)", name: "heroTitle", widget: "string", default: "Unser Dorf lebt!" }
+          - { label: "Untertitel", name: "heroSubtitle", widget: "text", default: "Entdecke die nächsten Veranstaltungen..." }
+          - { label: "Hintergrundbild", name: "heroImage", widget: "image", required: false }
+          - { label: "Highlights Sektion Titel", name: "highlightsTitle", widget: "string", default: "Das macht uns aus" }
+          - { label: "Highlights Sektion Untertitel", name: "highlightsSubtitle", widget: "text", default: "Büttel ist mehr als nur ein Wohnort..." }
           - label: "Highlights"
             name: "highlights"
             widget: "list"
             fields:
-              - {label: "Icon (SVG Pfad)", name: "icon", widget: "string"}
-              - {label: "Titel", name: "title", widget: "string"}
-              - {label: "Beschreibung", name: "description", widget: "string"}
-          - label: "Newsletter Bereich"
-            name: "newsletter"
-            widget: "object"
-            fields:
-              - {label: "Titel", name: "title", widget: "string"}
-              - {label: "Beschreibung", name: "description", widget: "text"}
-              - {label: "Hintergrundbild", name: "image", widget: "image"}
-      - name: "about"
-        label: "Über uns Seite"
-        file: "src/content/settings/about.json"
+              - { label: "Icon (Lucide Path)", name: "icon", widget: "string" }
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Beschreibung", name: "description", widget: "text" }
+      - label: "Über uns"
+        name: "about"
+        file: "src/content/pages/about.md"
         fields:
-          - {label: "Hero Bild", name: "heroImage", widget: "image"}
-          - {label: "Geschichte", name: "history", widget: "markdown"}
-          - label: "Unsere Werte"
+          - { label: "Hero Bild", name: "heroImage", widget: "image" }
+          - { label: "Geschichte Titel", name: "historyTitle", widget: "string", default: "Unsere Geschichte" }
+          - { label: "Geschichte Text", name: "body", widget: "markdown" }
+          - { label: "Werte Titel", name: "valuesTitle", widget: "string", default: "Unsere Werte" }
+          - label: "Werte"
             name: "values"
             widget: "list"
             fields:
-              - {label: "Icon (SVG Pfad)", name: "icon", widget: "string"}
-              - {label: "Titel", name: "title", widget: "string"}
-              - {label: "Beschreibung", name: "description", widget: "string"}
-          - label: "Vorstand"
+              - { label: "Icon (Lucide Path)", name: "icon", widget: "string" }
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Beschreibung", name: "description", widget: "text" }
+          - { label: "Vorstand Titel", name: "boardTitle", widget: "string", default: "Unser Vorstand" }
+          - label: "Vorstand Mitglieder"
             name: "boardMembers"
             widget: "list"
             fields:
-              - {label: "Name", name: "name", widget: "string"}
-              - {label: "Rolle", name: "role", widget: "string"}
-          - label: "Mitgliedschaft"
-            name: "membership"
-            widget: "object"
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Rolle", name: "role", widget: "string" }
+          - { label: "Mitgliedschaft Titel", name: "membershipTitle", widget: "string", default: "Mitglied werden" }
+          - { label: "Mitgliedschaft Untertitel", name: "membershipSubtitle", widget: "text" }
+          - label: "Beiträge"
+            name: "membershipFees"
+            widget: "list"
             fields:
-              - {label: "Titel", name: "title", widget: "string"}
-              - {label: "Beschreibung", name: "description", widget: "text"}
-              - label: "Beiträge"
-                name: "fees"
-                widget: "list"
-                fields:
-                  - {label: "Bezeichnung", name: "label", widget: "string"}
-                  - {label: "Wert", name: "value", widget: "string"}
-              - {label: "Kontakt-Email", name: "contactInfo", widget: "string"}
+              - { label: "Typ", name: "label", widget: "string" }
+              - { label: "Preis", name: "price", widget: "string" }
+  - name: "settings"
+    label: "Einstellungen"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - label: "Globaler Kontakt & Info"
+        name: "contact"
+        file: "src/content/pages/contact.json"
+        format: "json"
+        fields:
+          - { label: "Dorf Name", name: "villageName", widget: "string", default: "Bürgerverein Büttel" }
+          - { label: "Slogan", name: "slogan", widget: "string", default: "Gemeinsam für unser Dorf" }
+          - { label: "Adresse", name: "address", widget: "text" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Copyright Text", name: "copyright", widget: "string" }
+
+  - name: "events"
+    label: "Veranstaltungen"
+    folder: "src/content/events" # Hier speichert das CMS die Daten
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Datum", name: "date", widget: "string", hint: "z.B. 15. August 2026" }
+      - { label: "Uhrzeit", name: "time", widget: "string", hint: "z.B. 14:00 Uhr" }
+      - { label: "Ort", name: "location", widget: "string" }
+      - { label: "Ist Vergangen?", name: "isPast", widget: "boolean", default: false }
+      - { label: "Titelbild", name: "image", widget: "image" }
+      - { label: "Kurzbeschreibung", name: "description", widget: "text" }
+      - { label: "Ausführliche Beschreibung", name: "body", widget: "markdown", required: false }
+      - { label: "Bildergalerie", name: "gallery", widget: "list", required: false, field: { label: "Bild", name: "image", widget: "image" }}
