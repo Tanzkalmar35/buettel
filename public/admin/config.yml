@@ -1,10 +1,7 @@
 # public/admin/config.yml
 backend:
   name: git-gateway
-  branch: main # oder master, je nach deinem Repository
-
-# Erlaubt das Testen auf deinem lokalen Computer
-local_backend: true
+  branch: master # oder master, je nach deinem Repository
 
 # Wohin sollen hochgeladene Bilder?
 media_folder: "public/images/uploads"
