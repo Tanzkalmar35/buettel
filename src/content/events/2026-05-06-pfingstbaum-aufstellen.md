@@ -2,7 +2,7 @@
 title: "Grünes holen für die Pfingstbäume "
 date: 22. Mai - Freitag vor Pfingsten
 time: 17:30 Uhr
-location: Treffen Raiffeisen Markt
+location: Treffen alter Raiffeisen Markt, Büttel (Weserstr. 22b)
 isPast: true
 image: /images/uploads/img_20240517_194642.jpg
 description: Heute sammeln wir Birkengrün für die Pfingstbäume zusammen
