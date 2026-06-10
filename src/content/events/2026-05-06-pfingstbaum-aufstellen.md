@@ -5,7 +5,7 @@ time: 17:30 Uhr
 location: Treffen Raiffeisen Markt
 isPast: true
 image: /images/uploads/img_20240517_194642.jpg
-description: aufstellen
+description: Heute sammeln wir Birkengrün für die Pfingstbäume zusammen
 gallery:
   - /images/uploads/img_20240517_183236.jpg
   - /images/uploads/img_20240517_201424.jpg
