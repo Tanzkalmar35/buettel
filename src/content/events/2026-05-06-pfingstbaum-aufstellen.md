@@ -1,5 +1,5 @@
 ---
-title: Grünes holen für die Pfingstbäume
+title: "Grünes holen für die Pfingstbäume "
 date: 22. Mai - Freitag vor Pfingsten
 time: 17:30 Uhr
 location: Treffen Raiffeisen Markt
