@@ -1,6 +1,6 @@
 ---
 title: Maibaum aufstellen
-date: 30.April
+date: 30. April
 time: 16 Uhr Treffen - 18 Uhr Aufstellen
 location: Treffen bei Petra Krafzig - Aufstellen Oldenburger Hof
 isPast: true
