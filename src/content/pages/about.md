@@ -58,22 +58,24 @@ Die stiftische oder preußische Feldmark von Büttel hat die Form eines verschob
 
 In Büttel lebte zu Anfang des 17. Jahrhunderts der Landwirt Hake Betcken. Die Sage um ihn und seine Ermordung zeigt sich noch heute in dem Wappen der Ortschaft.
 
+
+
 **Die Geschichte von Hake Betcken**
 
 Auf dem Kirchhof in Büttel ist ein merkwürdiges Grab, an welches sich eine  merkwürdige Geschichte knüpft. Das Grab deckt eine gewaltige Doppelplatte von  grauem Sandstein. Die Schrift darauf ist schon lange unleserlich geworden,  nur noch wenige Buchstaben waren am Beginn dieses Jahrhunderts zu erkennen.  Einige vogelartige Figuren auf dem Stein sollen Tauben darstellen, wie  allgemein angenommen wird. Dies ist das bekannte Grabdenkmal des Hake  Betcken.
-  
+
 Das Büttler Kirchenbuch berichtet über den Tod dieses Mannes und über seinen  Grabstein wie folgt: Am 27. Oktober 1618 ist Hake Betcken auf dem Lesumer  Feld ermordet worden, als er nach Viehgeschäften aus Braunschweig zurück kam.  Auf dem Grabstein finden sich folgende Worte: "Anno 1618 den 27.  October, in der Nacht tho 2 Uhr, ys de irsome und vorneme Hake Betcken up dem  Lesmer Felde ehrbbaermlik van den nahbenannten dre Mörders ermordet, berovet  unde bestalen. - Siner Seelen Godt gnedigh ist. - Des Vagedes Sone tho Wrem,  Widern Frese, unde Johan Hilliken uth der Bolkauw unde Frerich Rinsel van  Berlin uth de Marke. Godt gewe den Mördern ehr verdeende Lohn." - Auf  dem Grabstein sind diese Worte in lateinischen Buchstaben eingehauen. Bemerkt  sei noch, daß "Wrem" soviel wie Wremen in Land Wursten und "Bolkauw"  das heutige Bülkau im Hadler Siedland zu bedeuten hat. Der Ausdruck "in  der Nacht tho twe Uhr" ist zu berichtigen auf nachmittags um 2 Uhr.
-  
+
 Die daran sich anknüpfende Geschichte wird wie folgt erzählt; Hake-Betcken,  ein reicher Viehändler aus Büttel, war mit Vieh nach Braunschweig und  Hannover gewesen und hatte dort aus dem Verkauf größere Summen eingenommen.  Sonst war er immer rechtzeitig und regelmäßig zu bestimmter Zeit heimgekehrt.  Diesmal kam er nicht pünktlich zurück. Statt seiner aber stellte sich alsbald  sein Pferd schaumbedeckt auf dem Hof in Büttel ein und gebärdete sich im  Stalle so wild und merkwürdig, daß es direkt auffällig war. Als sich jemand  auf das Pferd setzte, flog es mit diesem Reiter im schnellsten Galopp bis zum  Lesumer Felde, wo Hake Betcken ermordet aufgefunden wurde.
-  
+
 Die Mörder von Hake Betcken waren inzwischen in den Krieg nach Böhmen gezogen  und kehrten erst nach der unglückseligen Schlacht am weißen Berg bei Prag (8.  Nov. 1620) in den Norden zurück. Einige Zeit später war es nun auf dem Markt  in Dedesdorf, wo dieses Verbrechen aufgeklärt wurde. Hier befanden sich wegen  des Viehhandels die drei Mörder und auch verschiedene Bekannte des ermordeten  Hake-Betcken. Plötzlich fliegt ein Schwärm Tauben von den Dächern auf, und  einer der Mordgesellen sagt höchst unvorsichtig: "Süh, dat sünd Hake  Betcken siene Duben!" Doch kaum ist ihm dieser Satz entfahren, möchte er  im Busen gern bewahren. Umstehende Personen werden aufmerksam und fragen  nach, was man denn von Hake Betcken weiß. Für die drei Ruchlosen ist es spät,  sie werden festgenommen und angeklagt und dabei zum Geständnis getrieben.
-  
+
 Bei der nachfolgenden Gerichtsverhandlung kamen die schaurigen Einzelheiten  dieser bösen Tat an das Tageslicht. Die drei Mörder hatten sich auf der  Rückreise von Braunschweig zu Hake Betcken gesellt, welcher als reicher  Viehhändler und mit Geld wohlversehen bekannt war. Alle waren wohlberitten  und bewaffnet. Sie kehrten in Bremen ein, wo Hake Betcken die Nacht bleiben  wollte. Die drei Begleiter aber, lüstern nach seinem Gelde, überredeten ihn  zum gemeinsamen Weiterreiten. So kamen sie bis Lesum und vereinbarten hier  eine Wette darüber, wer von ihnen am schnellsten ein vor ihnen liegendes  Wäldchen durchreiten könne. Sie vereinbarten unterschiedliche Wege, welche  aber jenseits des Waldes wieder zusammenliefen. Wer zuerst diese Stelle  erreiche, sollte eine Pistole abfeuern. Die drei Mörder ließen ihr Opfer  absichtlich zuerst ankommen. Dieser schoß seine Pistole ab und war damit  wehrlos. Die bösen Begleiter forderten jetzt Geld und Leben. Hake Betcken  hielt um sein Leben an, weil er die Täter jedoch genau kannte, trauten sie  seinen Versicherungen nicht. Sie beraubten ihn, erschlugen und erschossen ihn  und ließen ihn zuletzt durch sein eigenes Pferd zerstampfen. Da fliegt ein  Schwärm wilder Tauben auf, und der Sterbende ruft in letzter Anstrengung:  "Ji Duben, ji Duben! Bringt dat an den Dag!" Danach verstarb er.
-  
+
 Aber was er in seiner letzten Todesangst gerufen, ist wahr geworden:
-  
+
 Die Tauben haben es an den Tag gebracht! Die Hinrichtung der drei Mörder soll  unter dem Erzbischof Johann Friedrich vollzogen worden sein.
-  
+
   (*Quelle: "Der Niedersachse" Nr. 8 von 1891*)
 
 \
