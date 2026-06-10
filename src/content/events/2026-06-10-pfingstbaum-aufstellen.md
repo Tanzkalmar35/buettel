@@ -1,5 +1,5 @@
 ---
-title: Pfingstbaum aufstellen
+title: "Pfingstbaum aufstellen "
 date: 23. Mai - Samstag vor Pfingsten
 time: 13:00 Uhr
 location: alter Raiffeisen Markt, Büttel (Weserstr. 22b)
