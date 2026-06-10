@@ -2,7 +2,7 @@
 title: Kranzbinden für den Maibaum
 date: "29. April "
 time: 17 Uhr
-location: Garage Petra Krafzig
+location: Garage Petra Krafzig - Weserstr. 1, Büttel
 isPast: true
 image: /images/uploads/20220430_163244.jpg
 description: >
